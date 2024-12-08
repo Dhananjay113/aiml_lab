@@ -1,0 +1,24 @@
+%Regression
+load fisheriris;
+X = meas(:,1); 
+Y = meas(:,2);
+m = length(X);
+figure;
+scatter(X, Y, 'filled');
+title('Sepal Length vs Sepal Width (Original Data)');
+xlabel('Sepal Length');
+ylabel('Sepal Width');
+hold on;
+tau = 0.8;
+x_test = linspace(min(X), max(X), 100)';
+y_pred = zeros(size(x_test));
+for i = 1:length(x_test)
+ W=exp(-(X- x_test(i)).^2 / (2 * tau^2)); 
+ X_design = [ones(m, 1), X];
+ W_matrix = diag(W);
+ theta = (X_design' * W_matrix * X_design) \ (X_design' * W_matrix * Y);
+ y_pred(i) = [1, x_test(i)] * theta;
+end
+plot(x_test, y_pred, '-r', 'LineWidth', 2);
+ legend('Original Data', 'Locally Weighted Regression Fit');
+ hold off
