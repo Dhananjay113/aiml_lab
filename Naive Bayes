@@ -1,0 +1,4 @@
+%naive
+load fisheriris;
+nb=fitcnb(meas,species);
+disp(nb);
