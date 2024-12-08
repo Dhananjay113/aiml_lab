@@ -1,0 +1,31 @@
+%Back Propagation
+
+% Generate synthetic data
+X = rand(100, 2); % 100 samples, 2 features
+Y = double(sum(X, 2) > 1); % Target: 1 if sum > 1, else 0
+
+% Define the neural network architecture
+layers = [
+    featureInputLayer(2, 'Name', 'input')             % Input layer
+    fullyConnectedLayer(3, 'Name', 'hidden1')        % Hidden layer with 3 neurons
+    reluLayer('Name', 'relu')                        % ReLU activation
+    fullyConnectedLayer(1, 'Name', 'output')         % Output layer
+    sigmoidLayer('Name', 'sigmoid')                  % Sigmoid activation
+    regressionLayer('Name', 'regression')            % Regression output (can be modified for classification)
+];
+
+% Set training options
+options = trainingOptions('adam', ...
+    'MaxEpochs', 100, ...
+    'InitialLearnRate', 0.01, ...
+    'Plots', 'training-progress', ...
+    'Verbose', false);
+
+% Train the network
+net = trainNetwork(X, Y, layers, options);
+
+% Test the trained network
+testInput = [0.5, 0.7];
+prediction = predict(net, testInput);
+
+fprintf('Test Input: [%.2f, %.2f], Prediction: %.4f\n', testInput(1), testInput(2), prediction);
