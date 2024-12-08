@@ -1,0 +1,4 @@
+%decision tree
+load fisheriris;
+treemodel= fitctree(meas, species);
+view(treemodel,'Mode','graph');
