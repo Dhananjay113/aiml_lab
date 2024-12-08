@@ -1,0 +1,5 @@
+%som
+data=rand(100,2);
+som=selforgmap([5 5]);
+som=train(som,data);
+plotsom(som.iw{1},som.layers{1}.distances);
