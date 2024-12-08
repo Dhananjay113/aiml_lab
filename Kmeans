@@ -1,0 +1,21 @@
+%kmeans
+load fisheriris;
+X = meas;
+k = 3;
+[idx, C] = kmeans(X, k, 'Distance', 'sqeuclidean', 'Replicates', 5);
+figure;
+gscatter(X(:, 1), X(:, 2), idx, 'rgb', 'osd');
+hold on;
+plot(C(:, 1), C(:, 2), 'kx', 'MarkerSize', 15, 'LineWidth', 3);
+title('k-Means Clustering of Iris Dataset (First Two Features)');
+xlabel('Sepal Length');
+ylabel('Sepal Width');
+legend('Cluster 1', 'Cluster 2', 'Cluster 3', 'Centroids');
+hold off;
+disp('Cluster centroids:');
+disp(C);
+disp('Number of points in each cluster:');
+disp(histcounts(idx, k));
+figure;
+silhouette(X, idx);
+title('Silhouette Plot for k-Means Clustering');
