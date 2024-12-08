@@ -1,0 +1,20 @@
+% Generate sample data
+data = rand(10, 2); % 10 points in 2D space
+
+%load firsheiris; |
+%X = means(:,1);  |
+%Y = means(:,2);  |   for iris data set 
+%data = [X,Y]   ; |
+
+% Perform hierarchical clustering
+Z = linkage(data, 'average'); % Use 'average', 'single', or 'complete' linkage
+
+% Plot the dendrogram
+dendrogram(Z);
+
+% Assign points to clusters (e.g., 3 clusters)
+clusters = cluster(Z, 'maxclust', 3);
+
+% Display cluster assignments
+disp('Cluster Assignments:');
+disp(clusters);
